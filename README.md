@@ -20,8 +20,9 @@ There are already puppet/ansible modules/roles existing in the world.
 - Ubuntu 16.04 + gitlab-runner as shell executor, with docker, java and gcc++
 
 Centos installs new kernel mainline from elrepo.
-Ubuntu installs kernel hwe lts.
-OpenJDK 8, headless.
+Ubuntu installs kernel HWE LTS.
+
+OpenJDK 8, headless, but no ant/maven.
 
 # Preparing
 
@@ -33,7 +34,7 @@ vagrant plugin install vagrant-reload
 ```
 
 - go to your gitlab install, find project
-- go to Settings (on the bottom left), CI/CD, Runners settinfs, click expand
+- go to Settings (on the bottom left), CI/CD, Runners settings, click expand
 - there is a section 'Specific Runners', with url and token in red, copy it.
 
 # Adjusting setup
