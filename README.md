@@ -6,7 +6,10 @@ vagrant, as disposable, on-demant workers.
 Shell scripts provided so that you really do not need anything else.
 This can be easily converted into kickstart/preseed/cloudinit scripts.
 
-Notice that there are already puppet/ansible modules/roles in the world.
+# Notice
+
+This is a quick proof of concept and is far from any production use.
+There are already puppet/ansible modules/roles existing in the world.
 
 # Flavours
 
