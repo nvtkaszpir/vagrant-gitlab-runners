@@ -1,0 +1,74 @@
+#
+# set env vars befor running vagrant
+# https://docs.gitlab.com/runner/
+#
+# export GITLABCI_NAME=my-gitlab-runner
+# export GITLABCI_URL=https://gitlab-ci.local/
+# export GITLABCI_TOKEN=changeme
+# export GITLABCI_EXECUTOR=docker
+# export GITLABCI_TAGS=''
+
+# reuired plugin, install it with
+# vagrant plugin install vagrant-reload
+Vagrant.has_plugin?('vagrant-reload')
+
+
+V_CPU = 2 # in cores
+V_MEM = 1024 # in megabytes per core
+V_MEM_TOTAL = V_MEM * V_CPU
+SYNC_TYPE = "rsync" # how to sync files in vagrant, for lxc rsync is suggested
+
+Vagrant.configure(2) do |config|
+  # because sometimes vagrant key insertion in boxes is broken, we skip step of updating insecure keys
+  config.ssh.insert_key = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider :libvirt do |libvirt, override|
+    override.vm.box = "generic/ubuntu1604"
+    # this is vagrant, vm is disposable, so set up supper agressive disk access
+    libvirt.cpu_mode = 'host-passthrough'
+    libvirt.cpus = V_CPU
+    libvirt.memory = V_MEM_TOTAL
+    libvirt.random_hostname = true
+    libvirt.video_type = 'vmvga'
+    libvirt.video_vram = '16384'
+    libvirt.volume_cache = 'unsafe'
+  end
+
+  config.vm.provider :virtualbox do |vbox, override|
+    override.vm.box = "generic/ubuntu1604"
+  end
+
+
+  config.vm.define "gr-u16-s" do |v|
+    # default vm overrides go here
+  end
+
+
+  config.vm.provision 'bootstrap',
+    type: 'shell',
+    path: "bootstrap.sh"
+
+  # reboot vm, required before docker install, for new kernel
+  config.vm.provision :reload
+
+  config.vm.provision 'build-tools',
+    type: 'shell',
+    path: 'build-tools.sh'
+
+  config.vm.provision 'docker',
+    type: 'shell',
+    path: 'docker.sh'
+
+  config.vm.provision 'gitlab',
+    type: 'shell',
+    path: 'gitlab-runner-deb.sh',
+    env: {
+      GITLABCI_NAME: ENV['GITLABCI_NAME'],
+      GITLABCI_URL: ENV['GITLABCI_URL'],
+      GITLABCI_TOKEN: ENV['GITLABCI_TOKEN'],
+      GITLABCI_EXECUTOR: ENV['GITLABCI_EXECUTOR'],
+      GITLABCI_TAGS: ENV['GITLABCI_TAGS'],
+    }
+
+end
