@@ -1,6 +1,8 @@
 #!/bin/bash
 curl -q -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh 2>/dev/null | sudo bash
 sudo yum install -y gitlab-runner
+sudo usermod -aG docker gitlab-runner
+sudo systemctl restart gitlab-runner
 
 # for debug
 # echo GITLABCI_URL=$GITLABCI_URL

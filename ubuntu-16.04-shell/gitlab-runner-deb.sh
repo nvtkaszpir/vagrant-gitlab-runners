@@ -2,6 +2,9 @@
 # notice, this script is executed with sudo by Vagrant
 curl -q -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh  2>/dev/null | sudo bash
 sudo apt-get install -y gitlab-runner
+sudo usermod -aG docker gitlab-runner
+sudo systemctl restart gitlab-runner
+
 # configure
 
 # for debug
