@@ -4,23 +4,19 @@
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-
+apt-get -y install virt-what libpam-systemd acpid
+apt-get -y upgrade
 # remove all kernels to save some space
 dpkg -l |grep linux-image|awk '{print $2}'|xargs apt-get remove --purge -y
 dpkg -l |grep linux-headers|awk '{print $2}'|xargs apt-get remove --purge -y
 
 apt-get -y dist-upgrade
 
+
+if [ "$(virt-what)" != "lxc" ]; then
+
 # install new kernels
-apt-get install -y --install-recommends linux-generic-hwe-16.04 acpid
-
-apt-get remove -y ntp
-apt-get install -y chrony
-# cleanup
-apt-get -y autoremove
-
-# install packages used for building apps
-# apt-get install -y build-essential python-virtualenv python-pip
+apt-get install -y --install-recommends linux-generic-hwe-16.04
 
 # aggressive storage tweaks
 grep -q 'noatime,discard' /etc/fstab \
@@ -35,5 +31,14 @@ vm.dirty_writeback_centisecs = 1000
 vm.vfs_cache_pressure = 50
 vm.swappiness = 1
 EOFSYSCTL
+
+fi
+
+
+apt-get remove -y ntp
+apt-get install -y chrony
+
+# cleanup
+apt-get -y autoremove
 
 # now reboot system

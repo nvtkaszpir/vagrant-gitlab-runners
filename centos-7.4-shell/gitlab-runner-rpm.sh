@@ -4,6 +4,11 @@ sudo yum install -y gitlab-runner
 sudo usermod -aG docker gitlab-runner
 sudo systemctl restart gitlab-runner
 
+PROVIDER=$(virt-what)
+if [ "$PROVIDER" != "" ]; then
+GITLABCI_TAGS+=",provider_${PROVIDER}"
+fi
+
 # for debug
 # echo GITLABCI_URL=$GITLABCI_URL
 # echo GITLABCI_TOKEN=$GITLABCI_TOKEN

@@ -11,6 +11,13 @@ This can be easily converted into kickstart/preseed/cloudinit scripts.
 This is a quick proof of concept and is far from any production use.
 There are already puppet/ansible modules/roles existing in the world.
 
+# Providers
+
+- virtualbox (not tested, but should work)
+- libvirt
+- LXC (Centos only)
+- LXD https://gitlab.com/catalyst-it/vagrant-lxd
+
 # Flavours
 
 - Centos 7.4 + gitlab-runner as docker executor (basic)
@@ -33,6 +40,10 @@ OpenJDK 8, headless, but no ant/maven.
 vagrant plugin install vagrant-reload
 ```
 
+- ensure you have proper plugin installed for given prodivers
+- ensure you have configured system to be able to use given provider, refer to
+  documentation details provided by given plugin (especially for LXD)
+
 - go to your gitlab install, find project
 - go to Settings (on the bottom left), CI/CD, Runners settings, click expand
 - there is a section 'Specific Runners', with url and token in red, copy it.
@@ -50,7 +61,7 @@ vagrant plugin install vagrant-reload
 
 - after command above executed, start vagrant:
 ```bash
-vagrant up
+vagrant up --provider=<providername>
 ```
 
 - in the end of vagrant execution you should see something in red color (yeah...):
@@ -66,3 +77,13 @@ vm-name: Runner registered successfully. Feel free to start it,
 - check your gitlab project and edit .gitlab-ci.yml to use proper tags in the
   project depending on the build/step and so on.
 
+# Rebuilding machine
+
+Pretty obvious
+
+```bash
+vagrant destroy -f
+vagrant up --provider=<providername>
+```
+
+Remember to go to Gitlab CI and remode dead workers.

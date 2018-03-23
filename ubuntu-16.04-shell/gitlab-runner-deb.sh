@@ -5,6 +5,10 @@ sudo apt-get install -y gitlab-runner
 sudo usermod -aG docker gitlab-runner
 sudo systemctl restart gitlab-runner
 
+PROVIDER=$(virt-what)
+if [ "$PROVIDER" != "" ]; then
+GITLABCI_TAGS+=",provider_${PROVIDER}"
+fi
 # configure
 
 # for debug

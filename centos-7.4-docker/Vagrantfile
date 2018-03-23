@@ -39,6 +39,20 @@ Vagrant.configure(2) do |config|
     override.vm.box = "centos/7"
   end
 
+  config.vm.provider :lxc do |lxc, override|
+    override.vm.box = "st01tkh/centos7-64-lxc"
+  end
+
+  config.vm.provider :lxd do |lxd, override|
+    override.vm.box = "st01tkh/centos7-64-lxc"
+    lxd.api_endpoint = 'https://127.0.0.1:8443'
+    lxd.timeout = 10
+    lxd.name = nil
+    lxd.nesting = nil
+    lxd.privileged = nil
+    lxd.ephemeral = false
+    lxd.profiles = ['default']
+  end
 
   config.vm.define "gr-c7-d" do |v|
     # default vm overrides go here
