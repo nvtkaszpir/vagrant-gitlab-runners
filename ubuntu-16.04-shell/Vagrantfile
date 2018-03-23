@@ -49,8 +49,8 @@ Vagrant.configure(2) do |config|
     lxd.api_endpoint = 'https://127.0.0.1:8443'
     lxd.timeout = 10
     lxd.name = nil
-    lxd.nesting = nil
-    lxd.privileged = nil
+    lxd.nesting = true
+    lxd.privileged = true
     lxd.ephemeral = false
     lxd.profiles = ['default']
   end
