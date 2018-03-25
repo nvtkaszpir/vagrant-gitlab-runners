@@ -1,7 +1,7 @@
 # gitlab-runner in vagrant
 
-Example scripts to run different gitlab runners as virtual machines under
-vagrant, as disposable, on-demant workers.
+Example scripts to run different GitLab runners as virtual machines under
+vagrant, as disposable, on-demand workers.
 
 Shell scripts provided so that you really do not need anything else.
 This can be easily converted into kickstart/preseed/cloudinit scripts.
@@ -40,19 +40,19 @@ OpenJDK 8, headless, but no ant/maven.
 vagrant plugin install vagrant-reload
 ```
 
-- ensure you have proper plugin installed for given prodivers
+- ensure you have proper plugin installed for given providers
 - ensure you have configured system to be able to use given provider, refer to
   documentation details provided by given plugin (especially for LXD)
 
-- go to your gitlab install, find project
+- go to your GitLab install, find project
 - go to Settings (on the bottom left), CI/CD, Runners settings, click expand
-- there is a section 'Specific Runners', with url and token in red, copy it.
+- there is a section 'Specific Runners', with URL and token in red, copy it.
 
 # Adjusting setup
 - go into specific directory
-- copy .secrets.dist to .secrets
+- copy ``.secrets.dist`` to ``.secrets``
 
-- edit .secrets and update runner name, url, project token to register and tags
+- edit ``.secrets`` and update runner name, URL, project token to register and tags
 
 - execute command in shell, to load env vars:
 ```bash
@@ -71,10 +71,10 @@ vm-name: Runner registered successfully. Feel free to start it,
          but if it's running already the config should be automatically reloaded!
 ```
 
-- go to the gitlab project, and check if in Runner settings you see registered
+- go to the GitLab project, and check if in Runner settings you see registered
   runner.
 
-- check your gitlab project and edit .gitlab-ci.yml to use proper tags in the
+- check your GitLab project and edit ``.gitlab-ci.yml`` to use proper tags in the
   project depending on the build/step and so on.
 
 # Rebuilding machine
@@ -86,4 +86,4 @@ vagrant destroy -f
 vagrant up --provider=<providername>
 ```
 
-Remember to go to Gitlab CI and remode dead workers.
+Remember to go to GitLab CI and remove dead workers.
