@@ -34,7 +34,6 @@ OpenJDK 8, headless, but no ant/maven.
 ## Preparing
 
 - ensure you have vagrant installed
-
 - ensure you have vagrant plugin vagrant-reload
 
 ```bash
