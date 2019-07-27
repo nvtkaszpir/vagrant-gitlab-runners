@@ -64,6 +64,11 @@ Vagrant.configure(2) do |config|
     type: 'shell',
     path: "bootstrap.sh"
 
+  config.vm.provision 'box_generic_ubuntu_fix-dns',
+    type: 'shell',
+    path: 'box_generic_ubuntu_fix-dns.sh'
+
+
   # reboot vm, required before docker install, for new kernel
   config.vm.provision :reload
 
