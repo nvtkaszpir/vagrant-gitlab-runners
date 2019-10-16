@@ -53,6 +53,21 @@ Vagrant.configure(2) do |config|
     lxd.privileged = true
     lxd.ephemeral = false
     lxd.profiles = ['default']
+
+    # attach root disk
+    # https://lxd.readthedocs.io/en/latest/storage/#default-storage-pool
+    # 
+    # for more search for 'Type: disk' under url:
+    # https://lxd.readthedocs.io/en/latest/containers/#device-configuration
+
+    lxd.devices = {
+      root: {
+        path: '/',
+        type: 'disk',
+        pool: 'default'
+      }
+    }
+
   end
 
   config.vm.define "gr-u16-d" do |v|
