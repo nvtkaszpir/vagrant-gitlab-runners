@@ -15,7 +15,7 @@ There are already puppet/ansible modules/roles existing in the world.
 
 - virtualbox (not tested, but should work)
 - libvirt
-- LXC (Centos only)
+- LXC (Centos only), but it is deprecated, use vagrant-lxd
 - LXD [vagrant-lxd](https://gitlab.com/catalyst-it/vagrant-lxd)
 
 ## Flavours
@@ -33,14 +33,18 @@ OpenJDK 8, headless, but no ant/maven.
 
 ## Preparing
 
-- ensure you have vagrant installed
+- ensure you have vagrant installed, verion 2.2.5
+- ensure you have vagrant plugin installed for given provider
+  and it is properly configured, pro tip: read docs for given provider
+  really carefully!
 - ensure you have vagrant plugin vagrant-reload
 
 ```bash
 vagrant plugin install vagrant-reload
 ```
 
-- ensure you have proper plugin installed for given providers
+- (optional) ensure you have proper plugin installed for given providers,
+  for example vagrant-libvirt, vagrant-lxc, vagrant-lxd
 - ensure you have configured system to be able to use given provider, refer to
   documentation details provided by given plugin (especially for LXD)
 
