@@ -16,7 +16,7 @@ There are already puppet/ansible modules/roles existing in the world.
 - virtualbox (not tested, but should work)
 - libvirt
 - LXC (Centos only), but it is deprecated, use vagrant-lxd
-- LXD [vagrant-lxd](https://gitlab.com/catalyst-it/vagrant-lxd)
+- LXD 3.x with [vagrant-lxd](https://gitlab.com/catalyst-it/vagrant-lxd)
 
 ## Flavours
 
